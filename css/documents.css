@@ -1,0 +1,300 @@
+main {
+    min-height: calc(100vh - 270px);
+}
+
+.tabs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    transition: .2s;
+}
+
+.tabs__links {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    order: 0;
+    white-space: nowrap;
+
+}
+
+.tabs__links>div {
+    display: inline-block;
+    text-decoration: none;
+    width: 33%;
+    padding: 6px 10px;
+    text-align: center;
+}
+
+.tabs__links>div>a {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    background-color: #1EC6DD;
+    border: 1px solid #1EC6DD;
+    cursor: pointer;
+}
+
+.tabs__links>div>a:hover {
+    color: #000;
+    cursor: pointer;
+}
+
+.tabs>#content-1:target~.tabs__links>div>a[href="#content-1"],
+.tabs>#content-2:target~.tabs__links>div>a[href="#content-2"],
+.tabs>#content-3:target~.tabs__links>div>a[href="#content-3"] {
+    background-color: #fff;
+    color: #000;
+    cursor: default;
+}
+
+.tabs>div:not(.tabs__links) {
+    display: none;
+    order: 1;
+}
+
+.tabs>div:target {
+    display: block;
+}
+
+.tabs>div:target .tabs__links>a
+{
+    background-color: #000;
+}
+
+
+.documents {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+.documents>.row {
+    border-bottom: 1px solid #cacaca;
+    background-color: #EFF6F8;
+    box-shadow: 0px 10px 15px rgba(121, 80, 194, 0.15);
+}
+
+.msg-form{
+    box-shadow: 0px 10px 15px rgba(121, 80, 194, 0.15);
+}
+
+.documents>.row:hover {
+    background-color: #cfe7eb;
+    cursor: pointer;
+}
+
+.p-20 {
+ padding: 15px;
+ 
+} 
+
+.p-20 p {
+    margin-bottom: 0;
+}
+
+.p-10{
+    padding-top: 22px;
+}
+
+.bordered-r {
+    border-right: 1px solid #cacaca;
+}
+
+.bordered-l {
+    border-left: 1px solid #cacaca;
+}
+
+
+.msg {
+    background-color: rgb(71, 145, 120);
+}
+
+select {
+    width: 400px;
+    padding: 20px;
+    outline: none;
+    border: 1px solid #1976d2;
+    border-radius: 8px;
+}
+
+.input-file-row {
+    display: inline-block;
+    padding-top: 20px;
+}
+
+.input-file {
+    position: relative;
+    display: inline-block;
+}
+
+.input-file span {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    outline: none;
+    text-decoration: none;
+    font-size: 16px;
+    color: rgb(255 255 255);
+    text-align: center;
+    background-color: #1EC6DD;
+    
+    box-sizing: border-box;
+    border: 1px solid #1EC6DD;
+    margin: 0;
+    transition: background-color 0.2s;
+    outline: none;
+    box-shadow: none;
+}
+
+.input-file input[type=file] {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+    display: block;
+    width: 300px;
+    height: 50px;
+}
+
+
+.input-file:hover span {
+    background-color: #fff;
+    color: #000;
+}
+
+.input-file:active span {
+    background-color: #1EC6DD;
+}
+
+/* Disabled */
+.input-file input[type=file]:disabled+span{
+    background-color: #eee;
+}
+
+
+/* Список файлов */
+.input-file-list {
+    padding: 10px 0;
+}
+
+.input-file-list-item {
+    margin-bottom: 10px;
+
+    background-color: #cfe7eb;
+    padding: 10px 0;
+    border-radius: 8px;
+}
+
+.input-file-list-remove {
+    color: red;
+    text-decoration: none;
+    display: inline-block;
+    padding-left: 8px;
+}
+
+.new-doc{
+   background-color: #EFF6F8;
+   padding-bottom: 30px;
+}
+
+.set-status{
+    padding: 10px 30px;
+    background-color: #6ff3a4;
+    border-radius: 8px;
+    transition: .2s;
+    border: none;
+    line-height: 20px;
+}
+
+.set-status:hover{
+    background-color: #b2f8ce;
+}
+
+.doc-name{
+    outline: none;
+    border: none;
+    background-color: #EFF6F8;
+}
+
+.documents>.row:hover .doc-name{
+    background-color: #cfe7eb;
+}
+
+.row{
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.access-deny{
+    padding: 60px;
+    font-size: 24px;
+}
+
+footer{
+    padding-top: 10px;
+}
+
+@media(max-width:1000px){
+    select{
+        width: 100%;
+    }
+}
+
+@media(max-width:768px){
+    .btn{
+        padding: 10px 10px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+
+    .exit{
+        padding: 10px 50px;
+    }
+    .access-deny{
+        font-size: 20px;
+        padding: 60px 0;
+    }
+
+    select{
+       width: 100%;
+    }
+
+    .input-file span{
+        width: 300px;
+    }
+
+    .send{
+        width: 300px;
+        font-size: 16px;
+    }
+    .bordered-l{
+        border-left: none;
+    }
+
+    .bordered-r{
+        border-right: none;
+    }
+}
+
+@media(max-width:480px){
+    .input-file span{
+        width: 200px;
+    }
+
+    .send{
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .input-file input[type=file] {
+
+        width: 100%;
+        height: 50px;
+    }
+
+    
+}

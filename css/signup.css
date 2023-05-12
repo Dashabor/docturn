@@ -1,0 +1,163 @@
+.main-page {
+    background-color: #fff;
+    border: 1px solid #1EC6DD;
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-top: 100px;
+    box-shadow: 0px 10px 15px rgba(121, 80, 194, 0.15);
+    border-radius: 16px;
+}
+
+.form{
+    padding: 40px 0;
+}
+
+.box {
+    padding: 40px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.form h2{
+    margin-bottom: 20px;
+}
+
+select {
+    width: 100%;
+    outline: none;
+    border: 1px solid #1EC6DD;
+    height: 100%;
+    padding: .75rem .5rem;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    color: #000;
+    background-color: #EFF6F8;
+}
+
+
+.links{
+    margin-top: 14px;
+}
+
+.links a{
+    text-decoration: none;
+    color:#1EC6DD ;
+    font-size: 16px;
+}
+
+.links a:hover{
+    color: rgba(0, 0, 0, 0.7);
+}
+
+button{
+    width: 290px;
+}
+
+.navbar-toggler{
+  width: 56px;
+}
+
+input[type="text"]:invalid:not(:focus),
+input[type="email"]:invalid:not(:focus),
+input[type="tel"]:invalid:not(:focus) {
+    border-color: rgb(255, 156, 156);
+}
+
+
+.text-field_floating {
+    position: relative;
+  }
+  .text-field_floating .text-field__input {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+    padding: 1rem 0.75rem;
+    border: 1px solid #1EC6DD;
+    outline: none;
+    border-radius: 8px;
+    background-color: #EFF6F8;
+    width: 100%;
+  }
+
+  .text-field_floating .text-field__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 1rem .75rem;
+    color: #6e6e6e;
+    pointer-events: none;
+    transform-origin: 0 0;
+    transition: opacity .15s ease-in-out, transform .15s ease-in-out;
+  }
+  .text-field_floating .text-field__input::-moz-placeholder {
+    color: transparent;
+  }
+  .text-field_floating .text-field__input::placeholder {
+    color: transparent;
+  }
+  .text-field_floating .text-field__input:focus,
+  .text-field_floating .text-field__input:not(:placeholder-shown) {
+    padding-top: 1.625rem;
+    padding-bottom: .625rem;
+  }
+  .text-field_floating .text-field__input:focus~.text-field__label,
+  .text-field_floating .text-field__input:not(:placeholder-shown)~.text-field__label {
+    opacity: .65;
+    transform: scale(.85) translateY(-.75rem) translateX(.15rem);
+  }
+
+.row>div{
+    margin-bottom: 12px;
+}
+
+.password{
+    margin-bottom: 12px;
+}
+
+.nav-link{
+  font-size: 18px;
+  color: rgba(0, 0, 0, 0.7);
+  border: 1px solid #fff;
+}
+
+.nav-link:hover{
+  color: rgba(0, 0, 0, 1);
+  border: 1px solid #fff;
+}
+
+.password-control {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	background: url(../img/view.png) 0 0 no-repeat;
+}
+.password-control.view {
+	background: url(../img/no-view.png) 0 0 no-repeat;
+}
+
+
+@media(max-width: 480px){
+  .nav-link{
+    font-size: 14px;
+  }
+
+  .box{
+    width: 100%;
+  }
+
+  .btn{
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 10px;
+  }
+}
+
+@media(max-width: 360px){
+  .navbar{
+    height: 120px;
+  }
+}
+

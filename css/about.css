@@ -1,0 +1,156 @@
+.about-background{
+    position: relative;
+    top: -300px;
+    left: 400px;
+    z-index: -1;
+    width: 800px;
+}
+
+.advantage{
+    text-align: center;
+    padding: 10px 20px;
+    margin-top: -220px;
+}
+
+.advantage img{
+    margin-bottom: 20px;
+    
+}
+
+.bordered-r{
+    border-right: 2px solid #1EC6DD;;
+}
+
+.action{
+    margin-top: 60px;
+    background: url("../img/action-background.png");
+    height: 300px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.action-text{
+    background-color: rgba(94, 94, 94, 0.3);
+    border-radius: 16px;
+    height: 300px;
+}
+
+.action p{
+    padding-top: 60px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.action a:hover{
+    background-color: #fff;
+    border: 1px solid #fff;
+}
+
+@media(max-width: 1400px){
+    .about-background{
+        position: relative;
+        top: -300px;
+        left: 400px;
+        z-index: -1;
+        width: 800px;
+    }
+
+    .about-background img{
+        width: 800px;
+    }
+}
+
+@media(max-width: 1200px){
+
+    .about-background{
+
+        width: 600px;
+    }
+
+    .about-background img{
+        width: 600px;
+    }
+}
+
+@media(max-width: 1000px){
+
+    .about-background{
+        top: -300px;
+        left: 150px;
+        width: 600px;
+    }
+
+    .about-background img{
+        width: 600px;
+    }
+
+    .advantages{
+        margin-top: -250px;
+    }
+
+    .advantage{
+        margin-top: 0px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+    }
+
+    .bordered-r{
+        border-bottom: 2px solid #1EC6DD;
+        border-right: none;
+    }
+    
+}
+
+@media(max-width: 768px){
+
+    .about-background{
+        top: -250px;
+        left: 50px;
+        width: 400px;
+        opacity: 0.7;
+    }
+
+    .about-background img{
+        width: 400px;
+    }
+}
+
+@media(max-width: 480px){
+
+    .about-background{
+        display: none;
+    }
+
+    .about-background img{
+        max-width: 250px;
+    }
+
+    .advantages{
+        margin-top: 20px;
+    }
+
+    .advantage{
+        margin-top: 0px;
+        padding-bottom: 30px;
+        margin-bottom: 20px;
+    }
+
+    .action{
+        margin-top: 60px;
+        background: url("../img/action-background.png");
+        height: 280px;
+        border-radius: 16px;
+        text-align: center;
+    }
+
+    .action-text{
+        background-color: rgba(94, 94, 94, 0.3);
+        border-radius: 16px;
+        height: 280px;
+    }
+
+    .action p{
+        font-size: 20px;
+    }
+}

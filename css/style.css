@@ -1,0 +1,277 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+
+}
+
+header {
+    background-color: #fff;
+    width: 100%;
+    box-shadow: 0px 10px 15px rgba(121, 80, 194, 0.15);
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.navbar {
+    justify-content: space-between;
+    color: #000;
+    height: 90px;
+}
+
+
+.logo {
+    display: flex;
+}
+
+.logo a {
+    font-size: 30px;
+    font-weight: bold;
+    color: #1EC6DD;
+}
+
+.logo a:hover {
+    color: #1EC6DD;
+}
+
+.logo-color {
+    color: #FFCC80;
+}
+
+.main-color {
+    color: #1EC6DD;
+}
+
+.navbar-collapse {
+    flex-grow: 0;
+}
+
+.nav-item {
+    font-size: 20px;
+    color: #000;
+    line-height: 70px;
+    padding: 0 20px;
+}
+
+.nav-button {
+    line-height: 90px;
+}
+
+.nav-link {
+    border: 2px solid #fff;
+    transition: .3s;
+}
+
+.nav-link:hover {
+    border: 2px solid #fff;
+    border-bottom: 2px solid #1EC6DD;
+}
+
+.btn {
+    background-color: #1EC6DD;
+    padding: 10px 50px;
+    font-size: 18px;
+    color: #fff;
+    border-radius: 30px;
+    transition: .3s;
+    font-weight: 600;
+}
+
+.btn:hover {
+    border-color: #1EC6DD;
+}
+
+.main-page {
+    text-align: center;
+}
+
+.main-page h1 {
+    line-height: 200px;
+    font-weight: bold;
+}
+
+.main-card {
+    background-color: #fff;
+    border: 1px solid #1EC6DD;
+    border-radius: 16px;
+    padding: 28px;
+    margin: 0 10px;
+    height: 530px;
+}
+
+
+.main-card h2 {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.main-card p {
+    height: 140px;
+}
+
+.main-button {
+    margin-top: 40px;
+}
+
+.main-button a {
+    width: calc(100% - 20px);
+}
+
+footer {
+    margin-top: 60px;
+}
+
+footer p {
+    line-height: 44px;
+    font-size: 20px;
+}
+
+.page-title {
+    max-width: 1400px;
+    background-color: #fff;
+    border: 1px solid #1EC6DD;
+    margin: 60px auto;
+    padding: 80px 40px;
+    text-align: center;
+    border-radius: 16px;
+    box-shadow: 0px 10px 15px rgba(121, 80, 194, 0.15);
+}
+
+.page-title h2 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+@media(max-width: 1400px) {
+    .container {
+        max-width: 1300px;
+    }
+
+    .nav-item {
+        font-size: 18px;
+        color: #000;
+        line-height: 70px;
+        padding: 0 10px;
+    }
+
+    .main-card p {
+        font-size: 16px;
+    }
+
+    .main-card {
+        height: 550px;
+    }
+}
+
+@media(max-width: 1200px) {
+    .container {
+        max-width: 1100px;
+    }
+
+    .nav-item {
+        font-size: 18px;
+        color: #000;
+        line-height: 70px;
+        padding: 0 10px;
+    }
+
+    .main-card img {
+        width: 160px;
+    }
+
+    .main-card p {
+        font-size: 16px;
+        height: 220px;
+    }
+
+    .main-card {
+        height: 520px;
+    }
+}
+
+@media(max-width: 992px) {
+    .container {
+        max-width: 770px;
+    }
+
+    .navbar-collapse {
+        flex-grow: 0;
+        background-color: #fff;
+        font-size: 18px;
+        padding: 30px 30px;
+        margin-top: 30px;
+        position: absolute;
+        width: 100%;
+        top: 40px;
+        border-radius: 16px;
+        box-shadow: 0px 10px 15px rgba(121, 80, 194, 0.15);
+        z-index: 2;
+    }
+
+    .nav-item {
+        font-size: 20px;
+        color: #000;
+        line-height: 50px;
+        padding: 0 4px;
+    }
+
+    .main-card img {
+        width: 160px;
+    }
+
+    .main-card p {
+        font-size: 14px;
+        height: 170px;
+    }
+
+    .main-card {
+        height: 470px;
+    }
+}
+
+@media(max-width: 768px) {
+    .container {
+        max-width: 490px;
+    }
+
+
+    .main-card p {
+        height: 30px;
+    }
+
+    .main-card {
+        height: 350px;
+        margin-bottom: 20px;
+    }
+
+    footer p{
+        font-size: 14px;
+    }
+}
+
+@media(max-width: 480px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .main-card img {
+        padding-top: 30px;
+        width: 140px;
+    }
+
+    .main-card p {
+        font-size: 14px;
+        min-height: 100px;
+    }
+
+    .main-card {
+        height: 410px;
+        margin-bottom: 20px;
+    }
+}
