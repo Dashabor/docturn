@@ -72,7 +72,7 @@ if (isset($_SESSION['logged_user'])) {
             </nav>
         </div>
     </header>
-    
+
 
     <main>
         <div class="container">
@@ -80,12 +80,29 @@ if (isset($_SESSION['logged_user'])) {
                 <h2>Документы</h2>
             </div>
 
+            <div class="row instruments">
+                
+                <div class="col-lg-7 col-md-3 p-20">
+                    
+                </div>
+
+                <div class="col-lg-3 col-md-3 p-20">
+                    <input id="elastic" class="elasticSearch" placeholder="Поиск" type="text">
+                </div>
+
+                <div class="col-lg-2 col-md-3 p-20">
+                    <select class="sortDate" name="" id="">
+                        <option value="">По убыванию даты</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="tabs">
 
                 <?php
                 if ($_SESSION['logged_user']->accessStatus == 2) {
 
-                    $request = R::getAll('SELECT * FROM `sentdocs` WHERE recipient_id = ? ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
+                    $request = R::getAll('SELECT * FROM `sentdocs` WHERE recipient_id = ? AND recipient_status = 1 ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
                     echo '<div class="documents" id="content-1">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 bordered-r p-20">
@@ -94,30 +111,30 @@ if (isset($_SESSION['logged_user'])) {
                                         <div class="col-lg-3 col-md-3 bordered-r  p-20">
                                             <p>Название документа</p>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 bordered-r p-20">
+                                        <div class="col-lg-2 col-md-2 bordered-r p-20">
                                             <p>Статус</p>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 bordered-b  p-20">
-                                            <p>Дата отправки</p>
-                                        </div>
+                                        <div class="col-lg-4 col-md-4 bordered-b  p-20">
+                                            <p>Комментарий</p>
+                                        </div> 
                                     </div>';
 
                     foreach ($request as $active) {
-                        echo    '<div class="row align-items-center">
+                        echo    '<div class="row align-items-center searchRow">
                                         <div class="col-lg-3 col-md-3 p-20 p-10" >
                                             <div class="row align-items-center justify-content-center">
-                                                <div class="col-lg-12 col-md-12">';
+                                                <div class="col-lg-12 col-md-12 searchMessage">';
 
                         $sender = R::findOne('users',  'id = ?', [$active['sender_id']]);
-                        
+
                         echo '<p>' . $sender['last_name'] . ' ' . $sender['first_name'] . ' ' . $sender['patronymic_name'] .  '</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 bordered-r bordered-l p-20 p-10">
+                                        <div class="col-lg-3 col-md-3 bordered-r bordered-l p-20 p-10 searchMessage">
                                             <a href="files/' . $active['tmp_document_name'] . '" download>' . $active['document_name'] . '</a>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 bordered-r p-20">
+                                        <div class="col-lg-2 col-md-2 bordered-r p-20">
                                             <p>';
                         if ($active['status'] == 1) {
                             echo
@@ -133,7 +150,13 @@ if (isset($_SESSION['logged_user'])) {
                         '</p>
                                         </div>
                                         <div class="col-lg-3 col-md-3 bordered-b  p-20 p-10">
-                                            <p>' . $active['date'] . '</p>
+                                            <p> <span style="font-size:12px; text-align:right; color:grey">' . $active['date'] . '</span><br>' . $active['comment'] . '</p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 bordered-b">
+                                            <form action="delete_message_recipient.php" method="post">
+                                                <input type="text" name="rowId" value="' . $active['id'] . '" hidden>    
+                                                <button class="delete-message" type="submit" name="delete_message">X</button>
+                                            </form>
                                         </div>
                                     </div>';
                     }
@@ -151,7 +174,7 @@ if (isset($_SESSION['logged_user'])) {
 
                 <?php
                 if ($_SESSION['logged_user']->accessStatus == 2) {
-                    $request = R::getAll('SELECT * FROM `sentdocs` WHERE sender_id = ? ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
+                    $request = R::getAll('SELECT * FROM `sentdocs` WHERE sender_id = ? AND sender_status = 1 ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
                     echo    '<div class="documents" id="content-2">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 bordered-r p-20">
@@ -160,32 +183,32 @@ if (isset($_SESSION['logged_user'])) {
                                     <div class="col-lg-3 col-md-3 bordered-r  p-20">
                                         <p>Название документа</p>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 bordered-r p-20">
+                                    <div class="col-lg-2 col-md-3 bordered-r p-20">
                                         <p>Статус</p>
                                     </div>
-                                    <div class="col-lg-3 col-md-3 bordered-b  p-20">
-                                        <p>Дата отправки</p>
+                                    <div class="col-lg-4 col-md-3 bordered-b  p-20">
+                                        <p>Комментарий</p>
                                     </div>
                                 </div>';
 
                     foreach ($request as $active) {
 
 
-                        echo    '<div class="row align-items-center">
+                        echo    '<div class="row align-items-center searchRow">
                                             <div class="col-lg-3 col-md-3 bordered-r p-20 p-10">
                                                 <div class="row align-items-center justify-content-center">
                                                     
-                                                    <div class="col-10">';
+                                                    <div class="col-10 searchMessage">';
                         $resipient = R::findOne('users',  'id = ?', [$active['recipient_id']]);
                         echo
                         '<p>' . $resipient['last_name'] . ' ' . $resipient['first_name'] . ' ' . $resipient['patronymic_name'] .  '</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-3 col-md-3 bordered-r  p-20 p-10">
+                                            <div class="col-lg-3 col-md-3 bordered-r  p-20 p-10 searchMessage">
                                                 <p><a href="files/' . $active['tmp_document_name'] . '" download> ' . $active['document_name'] . ' </a></p>
                                             </div>
-                                            <div class="col-lg-3 col-md-3 bordered-r p-20 p-10">
+                                            <div class="col-lg-2 col-md-3 bordered-r p-20 p-10">
                                                 <p>';
                         if ($active['status'] == 1)
                             echo 'Не прочитано';
@@ -194,8 +217,14 @@ if (isset($_SESSION['logged_user'])) {
                         echo '</p>
                                             </div>
                                             <div class="col-lg-3 col-md-3 bordered-b  p-20 p-10">
-                                                <p>' . $active['date'] . '</p>
-                                            </div>
+                                            <p> <span style="font-size:12px; text-align:right; color:grey">' . $active['date'] . '</span><br>' . $active['comment'] . '</p>
+                                        </div>
+                                        <div class="col-lg-1 col-md-1 bordered-b">
+                                            <form action="delete_message_sender.php" method="post">
+                                                <input type="text" name="rowId" value="' . $active['id'] . '" hidden>    
+                                                <button class="delete-message" type="submit" name="delete_message">X</button>
+                                            </form>
+                                        </div>
                                         </div>';
                     }
                     echo '</div>';
@@ -216,17 +245,20 @@ if (isset($_SESSION['logged_user'])) {
                     echo '
                 <div class="documents" id="content-3">
                     <div class="row justify-content-center">
-                        <div class="col-6 bordered-r p-20">
-                            <p>Контрагент</p>
+                        <div class="col-4 bordered-r p-20">
+                            <p>Получатель</p>
                         </div>
-                        <div class="col-6 p-20">
-                            <p>Название документа</p>
+                        <div class="col-4 bordered-r p-20">
+                            <p>Файл</p>
+                        </div>
+                        <div class="col-4 p-20">
+                            <p>Комментарий</p>
                         </div>
 
                     </div>
                     <form class="msg-form" id="documents-form" method="post" action="send_document.php" enctype="multipart/form-data">
                         <div class="row justify-content-center align-items-center new-doc">
-                            <div class="col-lg-6 col-md-6 p-20">
+                            <div class="col-lg-4 col-md-4 p-20">
                                 <select name="recipientId" required>
                                     <option value="">Выберите отправителя</option>';
 
@@ -241,7 +273,7 @@ if (isset($_SESSION['logged_user'])) {
 
                     echo ' </select>
                             </div>
-                            <div class="col-lg-6 col-md-6 bordered-b  p-20">
+                            <div class="col-lg-4 col-md-4 bordered-b  p-20">
                                 <div class="input-file-row">
                                     <label class="input-file">
                                         <input type="file" name="file" required>
@@ -250,11 +282,16 @@ if (isset($_SESSION['logged_user'])) {
                                     <div class="input-file-list"></div>
                                 </div>
                             </div>
+                            <div class="col-lg-4 col-md-4 bordered-b  p-20">
+                                <div>
+                                    <textarea class="comment" name="comment" id="" cols="40" rows="2" ></textarea>
+                                </div>
+                            </div>
                         </div>
                         <div class="row justify-content-center align-items-center new-doc">
                             <div class="col-lg-4 col-md-12">';
-                            
-                                echo '<button class="btn send" type="submit" name="send_docs">Отправить</button>
+
+                    echo '<button class="btn send" type="submit" name="send_docs">Отправить</button>
                             </div>
                         </div>
                     </form>
@@ -272,26 +309,29 @@ if (isset($_SESSION['logged_user'])) {
 
                 ?>
 
-<?php if (isset($smsg)) { ?> <div class="alert alert-success" role="alert"> <?php echo $smsg ?> </div> <?php } ?>
-                        <?php if (isset($fsmsg)) { ?> <div class="alert alert-danger" role="alert"> <?php echo $fsmsg ?> </div> <?php } ?>
+                <?php if (isset($smsg)) { ?> <div class="alert alert-success" role="alert"> <?php echo $smsg ?> </div> <?php } ?>
+                <?php if (isset($fsmsg)) { ?> <div class="alert alert-danger" role="alert"> <?php echo $fsmsg ?> </div> <?php } ?>
+
+
+
                 <div class="tabs__links">
                     <div>
-                        <a class="btn" href="#content-1">Входящие</a>
+                        <a id="send" class="btn" href="#content-1">Входящие</a>
                     </div>
                     <div>
-                        <a class="btn" href="#content-2">Исходящие</a>
+                        <a id="recip" class="btn" href="#content-2">Исходящие</a>
                     </div>
                     <div>
-                        <a class="btn" href="#content-3">Создать</a>
+                        <a id="create" class="btn" href="#content-3">Создать</a>
                     </div>
                 </div>
-
-
-
-
             </div>
 
+
         </div>
+
+
+
 
     </main>
     <footer>
@@ -317,6 +357,7 @@ if (isset($_SESSION['logged_user'])) {
 
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/elasticsearch.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 

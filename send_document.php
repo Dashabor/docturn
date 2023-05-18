@@ -43,8 +43,11 @@ if (isset($data['send_docs'])) {
         $sentdoc->recipientId = $data['recipientId'];
         $sentdoc->senderId = $id_user;
         $sentdoc->status = 1;
+        $sentdoc->senderStatus = 1;
+        $sentdoc->recipientStatus = 1;
         $sentdoc->documentName = $result;
         $sentdoc->tmpDocumentName = $file_up_name;
+        $sentdoc->comment = $data['comment'];
         $sentdoc->date = date("d.m.Y, H:i:s");
         R::store($sentdoc);
         header('location: documents.php#content-2');
