@@ -234,6 +234,66 @@ select {
     font-size: 24px;
 }
 
+.instruments{
+    margin-bottom: 10px;
+}
+
+.sortDate{
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    outline: none;
+    border: 1px solid #1EC6DD;
+    border-radius: 16px;
+}
+
+.elasticSearch{
+    width: 100%;
+    padding: 6px;
+    border: 1px solid #1EC6DD;
+    border-radius: 16px;
+}
+
+.documents>.instruments{
+        border-bottom: none;
+        background-color: #fff;
+        box-shadow: none;
+}
+
+.documents>.instruments:hover{
+    background-color: #fff;
+    cursor: default;
+}
+
+.hidden{
+    display: none;
+}
+
+.comment{
+    resize: none;
+    padding: 15px;
+    outline: none;
+    border-radius: 16px;
+    border: 1px solid #1EC6DD;
+}
+
+.comment:focus{
+    outline: none;
+}
+
+.delete-message{
+    background-color: #f5b0a7;
+    border: none;
+    padding: 8px 12px;
+    color: red;
+    font-size: 20px;
+    border-radius: 8px;
+}
+
+.delete-message:hover{
+    background-color: rgb(247, 146, 146);
+}
+
 footer{
     padding-top: 10px;
 }

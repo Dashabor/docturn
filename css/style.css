@@ -148,6 +148,18 @@ footer p {
     font-weight: bold;
 }
 
+.support{
+    font-size:20px; 
+    color:black; 
+    text-decoration:none; 
+    opacity:0.6
+}
+
+.support:hover{
+    opacity: 0.8;
+    color: black;
+}
+
 @media(max-width: 1400px) {
     .container {
         max-width: 1300px;
