@@ -81,7 +81,7 @@ if (isset($_SESSION['logged_user'])) {
                 <!-- Сообщение об успехе -->
                 <?php if (isset($fsmsg)) { ?> <div class="alert alert-danger" role="alert"> <?php echo $fsmsg ?> </div> <?php } ?>
                 <!-- Сообщение об ошибке -->
-                <form action="save_changes.php" method="post">
+                <form action="save_changes.php" method="post" onsubmit="if(conf()) return true; else return false">
                     <div class="row">
                         <div class="col-lg-3 col-md-6">
                             <div class="text-field text-field_floating">
@@ -263,26 +263,30 @@ if (isset($_SESSION['logged_user'])) {
     <footer>
         <div class="container">
             <div class="row justify-content-left">
-                <div class="col-lg-4 col-md-6">
-                    <p>г. Санкт-Петербург, ул. Репина, д. 5</p>
-                </div>
                 <div class="col-lg-3 col-md-6">
+                    <p>192392, г. Санкт-Петербург, <br> ул. Репина, д. 5, кв. 382</p>
+                </div>
+                <div class="col-lg-2 col-md-6">
                     <p>docturn@mail.com</p>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-6">
                     <p>+7(912)333-22-11</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <p>
+                        <a class="support" href="support.php">Техническая поддержка</a>
+                    </p>
                 </div>
                 <div class="col-lg-2 col-md-6">
                     <div class="logo">
-                        <a href="index.php" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
+                        <a href="#" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <script src="js/calendar.js">
-
-    </script>
+    <script src="js/calendar.js"></script>
+    <script src="js/script.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="js/jquery.maskedinput.min.js"></script>
     <script src="js/signup.js"></script>

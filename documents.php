@@ -95,7 +95,6 @@ if (isset($_SESSION['logged_user'])) {
                     </select>
                 </div>
             </div>
-
             <div class="tabs">
 
                 <?php
@@ -143,7 +142,7 @@ if (isset($_SESSION['logged_user'])) {
                                             <p>';
                         if ($active['status'] == 1) {
                             echo
-                            '<form action="set_status.php" method="post">
+                            '<form action="set_status.php" method="post" onsubmit="if(conf()) return true; else return false">
                                                         <input type="text" name="rowId" value="' . $active['id'] . '" hidden>    
                                                         <button class="set-status" type="submit" name="set_status">Прочитать</button>
                                                     </form>';
@@ -158,7 +157,7 @@ if (isset($_SESSION['logged_user'])) {
                                             <p> <span style="font-size:12px; text-align:right; color:grey">' . $active['date'] . '</span><br>' . $active['comment'] . '</p>
                                         </div>
                                         <div class="col-lg-1 col-md-1 bordered-b">
-                                            <form action="delete_message_recipient.php" method="post">
+                                            <form action="delete_message_recipient.php" method="post" onsubmit="if(conf()) return true; else return false">
                                                 <input type="text" name="rowId" value="' . $active['id'] . '" hidden>    
                                                 <button class="delete-message" type="submit" name="delete_message">X</button>
                                             </form>
@@ -231,7 +230,7 @@ if (isset($_SESSION['logged_user'])) {
                                             <p> <span style="font-size:12px; text-align:right; color:grey">' . $active['date'] . '</span><br>' . $active['comment'] . '</p>
                                         </div>
                                         <div class="col-lg-1 col-md-1 bordered-b">
-                                            <form action="delete_message_sender.php" method="post">
+                                            <form action="delete_message_sender.php" method="post" onsubmit="if(conf()) return true; else return false">
                                                 <input type="text" name="rowId" value="' . $active['id'] . '" hidden>    
                                                 <button class="delete-message" type="submit" name="delete_message">X</button>
                                             </form>
@@ -302,7 +301,7 @@ if (isset($_SESSION['logged_user'])) {
                         <div class="row justify-content-center align-items-center new-doc">
                             <div class="col-lg-4 col-md-12">';
 
-                    echo '<button class="btn send" type="submit" name="send_docs">Отправить</button>
+                    echo '<button class="btn send" type="submit" name="send_docs" onlick=>Отправить</button>
                             </div>
                         </div>
                     </form>
@@ -348,18 +347,23 @@ if (isset($_SESSION['logged_user'])) {
     <footer>
         <div class="container">
             <div class="row justify-content-left">
-                <div class="col-lg-4 col-md-6">
-                    <p>г. Санкт-Петербург, ул. Репина, д. 5</p>
-                </div>
                 <div class="col-lg-3 col-md-6">
+                    <p>192392, г. Санкт-Петербург, <br> ул. Репина, д. 5, кв. 382</p>
+                </div>
+                <div class="col-lg-2 col-md-6">
                     <p>docturn@mail.com</p>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <div class="col-lg-2 col-md-6">
                     <p>+7(912)333-22-11</p>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <p>
+                        <a class="support" href="support.php">Техническая поддержка</a>
+                    </p>
                 </div>
                 <div class="col-lg-2 col-md-6">
                     <div class="logo">
-                        <a href="index.php" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
+                        <a href="#" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
                     </div>
                 </div>
             </div>

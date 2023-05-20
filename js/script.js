@@ -26,3 +26,7 @@ function removeFilesItem(target){
 	}
 	input[0].files = dt.files;  
 }
+
+function conf(){
+	if(confirm('Уверены?')) return true; else return false
+}
