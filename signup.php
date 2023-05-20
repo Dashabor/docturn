@@ -107,6 +107,7 @@ if (isset($data['do_signup'])) {
         $user->birthdayDate = date("2004-m-d");
         $user->registrationDate = date("d.m.Y, H:i:s");
         $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
+        $user->sortSettings = 0;
         R::store($user);
         $smsg = "Регистрация прошла успешно";
     } else {

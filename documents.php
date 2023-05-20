@@ -8,8 +8,6 @@ if (isset($_SESSION['logged_user'])) {
 
 ?>
 
-
-
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -91,8 +89,9 @@ if (isset($_SESSION['logged_user'])) {
                 </div>
 
                 <div class="col-lg-2 col-md-3 p-20">
-                    <select class="sortDate" name="" id="">
-                        <option value="">По убыванию даты</option>
+                    <select class="sortDate" name="" id="sortDate">
+                        <option value="1" <?php if ($_SESSION['logged_user']->sortSettings == 1) echo 'selected'?>>Сначала новые</option>
+                        <option value="0" <?php if ($_SESSION['logged_user']->sortSettings == 0) echo 'selected'?>>Сначала старые</option>
                     </select>
                 </div>
             </div>
@@ -102,7 +101,13 @@ if (isset($_SESSION['logged_user'])) {
                 <?php
                 if ($_SESSION['logged_user']->accessStatus == 2) {
 
-                    $request = R::getAll('SELECT * FROM `sentdocs` WHERE recipient_id = ? AND recipient_status = 1 ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
+                    if($_SESSION['logged_user']->sortSettings == 1){
+                        $request = R::getAll('SELECT * FROM `sentdocs` WHERE recipient_id = ? AND recipient_status = 1 ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
+                    } else {
+                        $request = R::getAll('SELECT * FROM `sentdocs` WHERE recipient_id = ? AND recipient_status = 1 ORDER BY `id`', [$_SESSION['logged_user']->id]);
+                    }
+
+                    
                     echo '<div class="documents" id="content-1">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 bordered-r p-20">
@@ -174,7 +179,13 @@ if (isset($_SESSION['logged_user'])) {
 
                 <?php
                 if ($_SESSION['logged_user']->accessStatus == 2) {
-                    $request = R::getAll('SELECT * FROM `sentdocs` WHERE sender_id = ? AND sender_status = 1 ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
+                    
+                    if($_SESSION['logged_user']->sortSettings == 1){
+                        $request = R::getAll('SELECT * FROM `sentdocs` WHERE sender_id = ? AND sender_status = 1 ORDER BY `id` DESC', [$_SESSION['logged_user']->id]);
+                    } else {
+                        $request = R::getAll('SELECT * FROM `sentdocs` WHERE sender_id = ? AND sender_status = 1 ORDER BY `id`', [$_SESSION['logged_user']->id]);
+                    }
+                   
                     echo    '<div class="documents" id="content-2">
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 bordered-r p-20">
@@ -358,6 +369,7 @@ if (isset($_SESSION['logged_user'])) {
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/script.js"></script>
     <script src="js/elasticsearch.js"></script>
+    <script src="js/sort.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 
