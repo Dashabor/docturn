@@ -1,12 +1,10 @@
 <?php
 require "db.php";
-if($_SESSION['logged_user']->role != 1)
-{
+if ($_SESSION['logged_user']->role != 1) {
     header('location: documents.php#content-1');
 }
 
 if (isset($_SESSION['logged_user'])) {
-
 } else {
     header('location: signin.php');
 }
@@ -80,11 +78,35 @@ if (isset($_SESSION['logged_user'])) {
             <div class="page-title">
                 <h2>Допуски</h2>
             </div>
+
+            <div class="row instruments">
+
+                <div class="col-lg-7 col-md-3 p-20">
+
+                </div>
+
+                <div class="col-lg-3 col-md-3 p-20">
+                    <input id="elastic_access" class="elasticSearch" placeholder="Поиск" type="text">
+                </div>
+
+                <div class="col-lg-2 col-md-3 p-20">
+                    <select class="sortDate" name="" id="sortDate">
+                        <option value="1" <?php if ($_SESSION['logged_user']->sortSettings == 1) echo 'selected' ?>>Сначала новые</option>
+                        <option value="0" <?php if ($_SESSION['logged_user']->sortSettings == 0) echo 'selected' ?>>Сначала старые</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="requests">
                 <?php if ($_SESSION['logged_user']->role == 1) {
+
                     $usersCount = R::findAll('users', 'id > 0');
 
-                    $request = R::getAll('SELECT * FROM `users` ORDER BY id DESC LIMIT ?', [count($usersCount)]);
+                    if ($_SESSION['logged_user']->sortSettings == 1) {
+                        $request = R::getAll('SELECT * FROM `users` ORDER BY id DESC LIMIT ?', [count($usersCount)]);
+                    } else {
+                        $request = R::getAll('SELECT * FROM `users` ORDER BY id LIMIT ?', [count($usersCount)]);
+                    }
 
                     foreach ($request as $active) {
                         echo
@@ -95,7 +117,7 @@ if (isset($_SESSION['logged_user'])) {
                             <div class="row">
                                 <div class="col-lg-3 col-md-6 area bordered-r bordered-b first">
                                     <p><b>ФИО</b></p>
-                                    <p class="p-10">' . $active['last_name'], ' ', $active['first_name'], ' ', $active['patronymic_name'] . '</p>
+                                    <p class="p-10 findName">' . $active['last_name'], ' ', $active['first_name'], ' ', $active['patronymic_name'] . '</p>
                                 </div>
                             
                                 <div class="col-lg-3 col-md-6 area bordered-r bordered-b second">
@@ -180,7 +202,10 @@ if (isset($_SESSION['logged_user'])) {
             </div>
         </div>
     </footer>
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/elasticsearchdocs.js"></script>
+    <script src="js/sort.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 

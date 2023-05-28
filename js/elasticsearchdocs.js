@@ -1,12 +1,11 @@
-document.querySelector('#elastic').oninput = function(){
+document.querySelector('#elastic_access').oninput = function(){
 
     let val = this.value.trim();
-    let elasticItems = document.querySelectorAll('.searchRow');
+    let elasticItems = document.querySelectorAll('.request');
     console.log(elasticItems);
 
     if(val != ''){
         elasticItems.forEach(function(elem){
-            
             if(elem.innerText.search(val) == -1){
                 elem.classList.add('hidden');
             }
@@ -21,3 +20,6 @@ document.querySelector('#elastic').oninput = function(){
         });
     }
 }
+
+
+
