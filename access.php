@@ -73,15 +73,19 @@ if (isset($_SESSION['logged_user'])) {
             </nav>
         </div>
     </header>
+
+
+
+
+
     <main>
         <div class="container">
             <div class="page-title">
                 <h2>Допуски</h2>
             </div>
-
             <div class="row instruments">
 
-                <div class="col-lg-7 col-md-3 p-20">
+                <div class="col-lg-5 col-md-3 p-20">
 
                 </div>
 
@@ -95,9 +99,14 @@ if (isset($_SESSION['logged_user'])) {
                         <option value="0" <?php if ($_SESSION['logged_user']->sortSettings == 0) echo 'selected' ?>>Сначала старые</option>
                     </select>
                 </div>
+                <div class="col-lg-2 col-md-3 p-20">
+                    <button class="btn" id="pdf_button">Скачать</button>
+                </div>
             </div>
 
-            <div class="requests">
+
+
+            <div id="requests" class="requests">
                 <?php if ($_SESSION['logged_user']->role == 1) {
 
                     $usersCount = R::findAll('users', 'id > 0');
@@ -107,6 +116,55 @@ if (isset($_SESSION['logged_user'])) {
                     } else {
                         $request = R::getAll('SELECT * FROM `users` ORDER BY id LIMIT ?', [count($usersCount)]);
                     }
+
+                    echo  '<div id="download_pdf" style="display:none">
+                    <table id="pdf" class="pdf" style="width:100%; text-align:center">
+                        <caption align="top" style="font-size:30px; height:60px">Список всех контрагентов</caption> <br>
+                                <thead>
+                                    <tr style="height: 40px;">
+                                        <th>
+                                        ФИО</th>
+                                        <th>
+                                        Роль</th>
+                                        <th>
+                                        Дата регистрации</th>
+                                        <th>
+                                        Статус допуска</th>
+                                    </tr>
+                                </thead>
+                                <tbody>';
+                    foreach ($request as $active) {
+                        echo '
+                                    <tr style="height: 30px;">
+                                        <td>
+                                        ' . $active['last_name'], ' ', $active['first_name'], ' ', $active['patronymic_name'] . '</td>';
+
+                        if ($active['role'] == 1) {
+                            echo '<td>Администратор</td>';
+                        } else {
+                            echo '<td>Пользователь</td>';
+                        }
+
+                        echo '<td>' . $active['registration_date'] . '</td>';
+
+                        if ($active['access_status'] == 1) {
+                            echo '<td>Нет допуска</td>';
+                        } else {
+                            echo '<td>Есть допуск</td>';
+                        }
+                        echo
+
+                        '</tr>';
+                    }
+                    echo '</tbody>
+                        </table>
+                        </div>';
+
+
+
+
+
+
 
                     foreach ($request as $active) {
                         echo
@@ -203,9 +261,29 @@ if (isset($_SESSION['logged_user'])) {
         </div>
     </footer>
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
     <script src="js/script.js"></script>
     <script src="js/elasticsearchdocs.js"></script>
     <script src="js/sort.js"></script>
+    <script>
+        var button = document.getElementById("pdf_button");
+        var makepdf = document.getElementById("download_pdf");
+
+        button.addEventListener("click", function() {
+            var mywindow = window.open("", "PRINT",
+                "height=1000,width=1200");
+
+            mywindow.document.write(makepdf.innerHTML);
+
+            mywindow.document.close();
+            mywindow.focus();
+
+            mywindow.print();
+            mywindow.close();
+
+            return true;
+        });
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 

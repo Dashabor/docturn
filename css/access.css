@@ -59,6 +59,27 @@ select{
     display: none;
 }
 
+/* .pdf{
+    width: 100%;
+    text-align: center;
+}
+
+.pdf caption{
+    text-align: center;
+    font-size: 30px;
+}
+
+.pdf thead > tr > th{
+     text-align: center;
+     height: 40px;
+     border: 1px solid #1EC6DD;
+}
+
+.pdf tbody > tr > td{
+    padding: 10px 30px;
+    border: 1px solid #1EC6DD;
+} */
+
 @media(max-width:1000px){
     .second{
         border: none;
