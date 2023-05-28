@@ -14,7 +14,6 @@ if (isset($data['save_changes'])) {
         $user->patronymicName = $data['patronymicName'];
         $user->gendername = $data['gender'];
         $user->userInn = $data['userInn'];
-        $user->userKpp = $data['userKpp'];
         $user->userTel = $data['userTel'];
         $user->userEmail = $data['userEmail'];
         $user->birthdayDate = $data['birthdayDate'];
