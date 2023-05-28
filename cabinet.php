@@ -209,7 +209,7 @@ if (isset($_SESSION['logged_user'])) {
 
                     <div class="row">
                         <div class="col-lg-3 col-md-6">
-                            <h3>Email <span style="font-size: 16px; color:grey"> <?php if($_SESSION['logged_user']->registrationStatus == 0) echo 'Не подтверждено'; else echo 'Подтверждено'?></span></h3> 
+                            <h3>Email <span style="font-size: 16px; color:grey"> <?php if($_SESSION['logged_user']->emailConfirmed == 0) echo 'Не подтверждено'; else echo 'Подтверждено'?></span></h3> 
                             <div class="text-field text-field_floating">
                                 <input class="text-field__input" type="email" id="userEmail" name="userEmail" placeholder=" " autocomplete="off" value="<?php echo $_SESSION['logged_user']->userEmail ?>" required>
                                 <label class="text-field__label" for="userEmail">Email</label>

@@ -42,9 +42,6 @@ if (isset($data['do_signup'])) {
     if (R::count('users', "user_inn = ?", array($data['userInn'])) > 0) {
         $errors[] = 'Пользователь с таким ИНН уже существует!';
     }
-    if (R::count('users', "user_kpp = ?", array($data['userKpp'])) > 0) {
-        $errors[] = 'Пользователь с таким КПП уже существует!';
-    }
 
     if (R::count('users', "user_tel = ?", array($data['userTel'])) > 0) {
         $errors[] = 'Пользователь с таким номером уже существует!';
@@ -61,10 +58,10 @@ if (isset($data['do_signup'])) {
             $data['role'] = 2;
         }
 
-        $login = $data['userTel'];
+        $inn = $data['userInn'];
         $email = $data['userEmail'];
 
-        $hash = md5($login . time());
+        $hash = md5($inn . time());
 
         $headers  = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
@@ -77,7 +74,7 @@ if (isset($data['do_signup'])) {
                 <title>Подтвердите Email</title>
                 </head>
                 <body>
-                <p>Что бы подтвердить Email, перейдите по <a href="http://example.com/confirmed.php?hash=' . $hash . '">ссылке</a></p>
+                <p>Что бы подтвердить Email, перейдите по <a href="http://docturn/confirmed.php?hash=' . $hash . '">ссылке</a></p>
                 </body>
                 </html>
                 ';
@@ -85,13 +82,14 @@ if (isset($data['do_signup'])) {
 
         if (mail($email, "Подтвердите Email на сайте", $message, $headers)) {
             // Если да, то выводит сообщение
-            echo 'Подтвердите на почте';
+            $smsg = "Необходимо подтверждение почты.";
         }
+
 
         //добавление записи в таблицу пользователей
         $user = R::dispense('users');
         $user->role = $data['role'];
-        $user->registrationStatus = 0;
+        $user->emailConfirmed = 0;
         $user->accessStatus = 1;
         $user->firstName = $data['firstName'];
         $user->lastName = $data['lastName'];
@@ -103,9 +101,9 @@ if (isset($data['do_signup'])) {
         $user->birthdayDate = date("2004-m-d");
         $user->registrationDate = date("d.m.Y, H:i:s");
         $user->password = password_hash($data['password'], PASSWORD_DEFAULT);
+        $user->hash = $hash;
         $user->sortSettings = 0;
         R::store($user);
-        $smsg = "Регистрация прошла успешно";
     } else {
         //сообщение об ошибке
         $fsmsg = array_shift($errors);
@@ -147,7 +145,7 @@ if (isset($data['do_signup'])) {
                 <div class="form">
                     <form class="box" action="/signup.php" method="POST">
                         <h2>Регистрация</h2>
-                        <?php if (isset($smsg)) { ?> <div class="alert alert-success" role="alert"> <?php echo $smsg ?> </div> <?php } ?>
+                        <?php if (isset($smsg)) { ?> <div class="alert alert-success" style="color: #51510f; background-color:#e6e7d1; border:1px solid #dbdaba" role="alert"> <?php echo $smsg ?> </div> <?php } ?>
                         <?php if (isset($fsmsg)) { ?> <div class="alert alert-danger" role="alert"> <?php echo $fsmsg ?> </div> <?php } ?>
 
                         <div class="row justify-content-center">
