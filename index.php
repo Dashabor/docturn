@@ -50,7 +50,7 @@ require "db.php";
                                 <a class="nav-link" href="cabinet.php">Личный кабинет</a>
                             </li>
                             <li class="nav-item nav-button">
-                                <a class="btn" href="/logout.php">Выйти</a>
+                                <a class="btn" href="/logout.php" onclick="if(conf()) return true; else return false">Выйти</a>
                             </li>
                             <?php else : ?>
                             <li class="nav-item nav-button">
@@ -90,6 +90,7 @@ require "db.php";
                         </div>
                     </div>
                 </div>
+                <?php if(!isset($_SESSION['logged_user'])) : ?>
                 <div class="row justify-content-center">
                     <div class="col-lg-3 col-md-4">
                         <div class="main-button">
@@ -97,6 +98,7 @@ require "db.php";
                         </div>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
         </div>
     </main>
@@ -125,6 +127,7 @@ require "db.php";
             </div>
         </div>
     </footer>
+    <script src="js/script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 
