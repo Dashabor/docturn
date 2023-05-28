@@ -56,7 +56,7 @@ if (isset($_SESSION['logged_user'])) {
                                     <a class="nav-link active" href="#">Личный кабинет</a>
                                 </li>
                                 <li class="nav-item nav-button">
-                                    <a class="btn" href="/logout.php">Выйти</a>
+                                    <a class="btn" href="/logout.php" onclick="if(conf()) return true; else return false">Выйти</a>
                                 </li>
                             <?php else : ?>
                                 <li class="nav-item nav-button">
@@ -209,7 +209,7 @@ if (isset($_SESSION['logged_user'])) {
 
                     <div class="row">
                         <div class="col-lg-3 col-md-6">
-                            <h3>Email</h3>
+                            <h3>Email <span style="font-size: 16px; color:grey"> <?php if($_SESSION['logged_user']->registrationStatus == 0) echo 'Не подтверждено'; else echo 'Подтверждено'?></span></h3> 
                             <div class="text-field text-field_floating">
                                 <input class="text-field__input" type="email" id="userEmail" name="userEmail" placeholder=" " autocomplete="off" value="<?php echo $_SESSION['logged_user']->userEmail ?>" required>
                                 <label class="text-field__label" for="userEmail">Email</label>
@@ -234,19 +234,12 @@ if (isset($_SESSION['logged_user'])) {
                             </div>
                         </div>
                         <div class="col-lg-3">
-                            <h3>КПП</h3>
-                            <div class="text-field text-field_floating">
-                                <input class="text-field__input" type="text" id="userKpp" name="userKpp" placeholder=" " autocomplete="off" value="<?php echo $_SESSION['logged_user']->userKpp ?>" required>
-                                <label class="text-field__label" for="userKpp">КПП</label>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
                             <h3>Должность</h3>
                             <div class="text-field text-field_floating">
                                 <input disabled class="text-field__input" type="text" id="userRole" name="userRole" placeholder=" " autocomplete="off" value="<?php
-                                                                                                                                                                if ($_SESSION['logged_user']->role == 1) echo "Администратор";
-                                                                                                                                                                if ($_SESSION['logged_user']->role == 2) echo "Пользователь";
-                                                                                                                                                                ?>" required>
+                                        if ($_SESSION['logged_user']->role == 1) echo "Администратор";
+                                        if ($_SESSION['logged_user']->role == 2) echo "Пользователь";
+                                        ?>" required>
                                 <label class="text-field__label" for="userRole">Должность</label>
                             </div>
                         </div>
