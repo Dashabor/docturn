@@ -5,7 +5,6 @@ if (isset($_SESSION['logged_user'])) {
 } else {
     header('location: signin.php');
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +56,7 @@ if (isset($_SESSION['logged_user'])) {
                                     <a class="nav-link" href="cabinet.php">Личный кабинет</a>
                                 </li>
                                 <li class="nav-item nav-button">
-                                    <a class="btn exit" href="/logout.php">Выйти</a>
+                                    <a class="btn exit" href="/logout.php" onclick="if(conf()) return true; else return false">Выйти</a>
                                 </li>
                             <?php else : ?>
                                 <li class="nav-item nav-button">
@@ -70,7 +69,6 @@ if (isset($_SESSION['logged_user'])) {
             </nav>
         </div>
     </header>
-
 
     <main>
         <div class="container">
@@ -105,8 +103,6 @@ if (isset($_SESSION['logged_user'])) {
                     } else {
                         $request = R::getAll('SELECT * FROM `sentdocs` WHERE recipient_id = ? AND recipient_status = 1 ORDER BY `id`', [$_SESSION['logged_user']->id]);
                     }
-
-                    
                     echo '<div class="documents" id="content-1">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 bordered-r p-20">
@@ -175,7 +171,6 @@ if (isset($_SESSION['logged_user'])) {
                     </div>';
                 } ?>
 
-
                 <?php
                 if ($_SESSION['logged_user']->accessStatus == 2) {
                     
@@ -202,8 +197,6 @@ if (isset($_SESSION['logged_user'])) {
                                 </div>';
 
                     foreach ($request as $active) {
-
-
                         echo    '<div class="row align-items-center searchRow">
                                             <div class="col-lg-3 col-md-3 bordered-r p-20 p-10">
                                                 <div class="row align-items-center justify-content-center">
@@ -315,14 +308,10 @@ if (isset($_SESSION['logged_user'])) {
                                             </div>
                                         </div>';
                 }
-
-
                 ?>
 
                 <?php if (isset($smsg)) { ?> <div class="alert alert-success" role="alert"> <?php echo $smsg ?> </div> <?php } ?>
                 <?php if (isset($fsmsg)) { ?> <div class="alert alert-danger" role="alert"> <?php echo $fsmsg ?> </div> <?php } ?>
-
-
 
                 <div class="tabs__links">
                     <div>
@@ -336,12 +325,7 @@ if (isset($_SESSION['logged_user'])) {
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
-
 
     </main>
     <footer>

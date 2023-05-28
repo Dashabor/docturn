@@ -22,10 +22,6 @@ if (isset($data['do_signup'])) {
         $errors[] = 'Введите ИНН!';
     }
 
-    if (trim($data['userKpp']) == '') {
-        $errors[] = 'Введите КПП!';
-    }
-
     if (trim($data['userTel']) == '') {
         $errors[] = 'Введите Телефон!';
     }
@@ -95,13 +91,13 @@ if (isset($data['do_signup'])) {
         //добавление записи в таблицу пользователей
         $user = R::dispense('users');
         $user->role = $data['role'];
+        $user->registrationStatus = 0;
         $user->accessStatus = 1;
         $user->firstName = $data['firstName'];
         $user->lastName = $data['lastName'];
         $user->patronymicName = $data['patronymicName'];
         $user->gendername = 1;
         $user->userInn = $data['userInn'];
-        $user->userKpp = $data['userKpp'];
         $user->userTel = $data['userTel'];
         $user->userEmail = $data['userEmail'];
         $user->birthdayDate = date("2004-m-d");
@@ -177,12 +173,6 @@ if (isset($data['do_signup'])) {
                                 <div class="text-field text-field_floating">
                                     <input class="text-field__input" type="text" id="userInn" minlength="1" name="userInn" placeholder=" " autocomplete="off" value="<?php echo @$data['userInn'] ?>" required>
                                     <label class="text-field__label" for="userInn">ИНН</label>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <div class="text-field text-field_floating">
-                                    <input class="text-field__input" type="text" id="userKpp" minlength="1" name="userKpp" placeholder=" " autocomplete="off" value="<?php echo @$data['userKpp'] ?>" required>
-                                    <label class="text-field__label" for="userKpp">КПП</label>
                                 </div>
                             </div>
                             <div class="col-lg-12">
