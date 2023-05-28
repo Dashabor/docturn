@@ -1,5 +1,68 @@
 <?php
 require "db.php";
+$data = $_POST;
+
+var_dump($data['userEmail']);
+
+if (isset($data['send_to_support'])) {
+    if (trim($data['userName']) == '') {
+        $errors[] = 'Как к Вам обращаться?';
+    }
+
+
+    if (trim($data['problemText']) == '') {
+        $errors[] = 'Укажите проблему';
+    }
+
+    if (R::count('questions', "user_email = ?", array($_SESSION['logged_user']->userEmail)) > 0) {
+        $request = R::getAll('SELECT * FROM `questions` WHERE user_email = ? ORDER BY `id` DESC', [$_SESSION['logged_user']->userEmail]);
+        
+        var_dump($request[0]);
+        var_dump($request[0]['next_date']);
+        var_dump(date("d.m.Y, H:i:s", time()));
+         if($request[0]['next_date'] > date("d.m.Y, H:i:s", time())){
+             $errors[] = 'Попробуйте через час';
+         }
+        
+    }
+
+    if (empty($errors)) {
+
+
+        $question = R::dispense('questions');
+        $question->userName = $data['userName'];
+        $question->userEmail = $_SESSION['logged_user']->userEmail;
+        $question->questionText = $data['problemText'];
+        $question->registrationDate = date("d.m.Y, H:i:s");
+        $question->nextDate = date("d.m.Y, H:i:s", time()+60*60);
+        R::store($question);
+
+        $email = $data['userEmail'];
+        $headers  = "MIME-Version: 1.0\r\n";
+        $headers .= "Content-type: text/html; charset=utf-8\r\n";
+        $headers .= "To: <$email>\r\n";
+        $headers .= "From: <docturn@business.com>\r\n";
+
+        $message = '
+                <html>
+                <head>
+                <title>Подтвердите Email</title>
+                </head>
+                <body>
+                <p>Отправитель:' . $data['userName'] . '</p>
+                <p>Вопрос:' . $data['problemText'] . '</p>
+                </body>
+                </html>
+                ';
+        if (mail($email, "Вопрос от пользователя", $message, $headers)) {
+            // Если да, то выводит сообщение
+            $smsg = "Ваше обращение отправлено";
+        }
+        unset($data);
+    } else {
+        $fsmsg = array_shift($errors);
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -72,24 +135,22 @@ require "db.php";
             </div>
             <div class="row align-items-center">
 
-            <div class="col-lg-4">
+                <div class="col-lg-4">
 
-            </div>
+                </div>
                 <div class="col-lg-4 col-md-6">
-                    <form class="support-send" action="send_to_support.php" method="POST">
+                    <?php if (isset($smsg)) { ?> <div class="alert alert-success" role="alert"> <?php echo $smsg ?> </div> <?php } ?>
+                    <?php if (isset($fsmsg)) { ?> <div class="alert alert-danger" role="alert"> <?php echo $fsmsg ?> </div> <?php } ?>
+                    <form class="support-send" action="support.php" method="POST" onsubmit="if(conf()) return true; else return false">
                         <div class="text-field text-field_floating">
-                            <input class="text-field__input" type="text" id="userName" minlength="1" name="userName" placeholder=" " value="" required>
-                            <label class="text-field__label" for="userName">Ваше ФИО</label>
+                            <input class="text-field__input" type="text" id="userName" minlength="1" name="userName" placeholder=" " value="<?php echo @$_SESSION['logged_user']->firstName ?>" required>
+                            <label class="text-field__label" for="userName">Отправитель</label>
                         </div>
                         <div class="text-field text-field_floating">
-                            <input class="text-field__input" type="email" id="userEmail" minlength="1" name="userEmail" placeholder=" " value="<?php echo @$data['userEmail'] ?>" required>
-                            <label class="text-field__label" for="userEmail">Email</label>
-                        </div>
-                        <div class="text-field text-field_floating">
-                            <input class="text-field__input" type="text" id="problemText" minlength="1" name="problemText" placeholder=" " value="" required>
+                            <input class="text-field__input" type="text" id="problemText" minlength="1" name="problemText" placeholder=" " value="<?php echo @$data['problemText'] ?>" required>
                             <label class="text-field__label" for="problemText">Опишите проблему</label>
                         </div>
-                        <button class="btn" type="submit">Отправить</button>
+                        <button class="btn" type="submit" name="send_to_support">Отправить</button>
                     </form>
                 </div>
             </div>

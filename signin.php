@@ -9,7 +9,10 @@ if (isset($data['do_login'])) {
     $user = R::findOne('users', 'user_email = ?', array($data['userEmail']));
     if ($user) {
         //проверка совпаденя паролей
-        if (password_verify($data['password'], $user->password)) {
+        if ($user->emailConfirmed == 0) {
+            $errors[] = 'Необходимо подтвердить почту';
+        } 
+        if (password_verify($data['password'], $user->password) && empty($errors)) {
             $_SESSION['logged_user'] = $user;
             header('location: /index.php');
         } else {
