@@ -1,39 +1,42 @@
 <?php
+//Подключение к БД
 require "db.php";
-
+//Помещение полученных данных в переменную
 $data = $_POST;
+//Проверка наличия данных
 if (isset($data['do_login'])) {
-    //массив ошибок
+    //Массив ошибок
     $errors = array();
-    //поиск пользователя в базе данных
+    //Поиск пользователя в базе данных
     $user = R::findOne('users', 'user_email = ?', array($data['userEmail']));
     if ($user) {
-        //проверка совпаденя паролей
+        //Проверка совпаденя паролей
         if ($user->emailConfirmed == 0) {
             $errors[] = 'Необходимо подтвердить почту';
-        } 
+        }
         if (password_verify($data['password'], $user->password) && empty($errors)) {
+            //Авторизация пользователя
             $_SESSION['logged_user'] = $user;
             header('location: /index.php');
         } else {
             $errors[] = 'Неверный пароль!';
-            //вывод ошибок
+            //Вывод ошибок
             $fsmsg = array_shift($errors);
         }
     } else {
         $errors[] = 'Пользователь с такой почтой не найден.';
-        //вывод ошибок
+        //Вывод ошибок
         $fsmsg = array_shift($errors);
     }
 }
 ?>
 
-
-
+<!-- Код страницы -->
 <!DOCTYPE html>
 <html lang="ru">
 
 <head>
+    <!-- Настройка параметров страницы и подключение стилевых файлов -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,30 +48,40 @@ if (isset($data['do_login'])) {
 </head>
 
 <body>
+    <!-- Шапка страницы -->
     <header>
+        <!-- Общий контейнер -->
         <div class="container">
+            <!-- Меню навигации -->
             <nav class="navbar navbar-expand-lg">
                 <div class="container-fluid">
+                    <!-- Логотип -->
                     <div class="logo">
                         <a href="index.php" class="navbar-brand"><span class="logo-color">DOC</span>TURN</a>
                     </div>
-
+                    <!-- Ссылка на главную -->
                     <a class="nav-link" aria-current="page" href="index.php">Вернуться на главную</a>
-
                 </div>
             </nav>
         </div>
     </header>
+    <!-- Конец шапки страницы -->
+    <!-- Главная информация страницы -->
     <main>
+        <!-- Главный контейнер -->
         <div class="container">
             <div class="main-page">
                 <div class="form">
                     <form class="box" action="/signin.php" method="POST">
+                        <!-- Заголовок страницы -->
                         <h2>Авторизация</h2>
+                        <!-- Сообщение об успехе -->
                         <?php if (isset($smsg)) { ?> <div class="alert alert-success" role="alert"> <?php echo $smsg ?> </div> <?php } ?>
+                        <!-- Сообщение об ошибке -->
                         <?php if (isset($fsmsg)) { ?> <div class="alert alert-danger" role="alert"> <?php echo $fsmsg ?> </div> <?php } ?>
-
+                        <!-- Поля для авторизации -->
                         <div class="row align-items-center">
+                            <!-- Email -->
                             <div class="col-lg-12">
                                 <div class="text-field text-field_floating">
                                     <input class="text-field__input" type="email" id="userEmail" minlength="1" name="userEmail" placeholder=" " value="<?php echo @$data['userEmail'] ?>" required>
@@ -76,6 +89,7 @@ if (isset($data['do_login'])) {
                                 </div>
                             </div>
                         </div>
+                        <!-- Пароль -->
                         <div class="password">
                             <div class="text-field text-field_floating">
                                 <input class="text-field__input" type="password" id="password-input" name="password" placeholder=" " autocomplete="off" required>
@@ -83,27 +97,44 @@ if (isset($data['do_login'])) {
                                 <label class="text-field__label" for="password-input">Пароль</label>
                             </div>
                         </div>
+                        <!-- Кнопка отправки формы -->
                         <button class="btn" type="submit" name="do_login">Войти</button><!-- кнопка регистрации -->
+                        <!-- Ссылка на регистрацию -->
                         <div class="links">
                             <a href="signup.php">Регистрация</a>
                         </div>
                     </form>
                 </div>
             </div>
+        </div>
     </main>
+    <!-- Конец главной информации страницы -->
+    <!-- Подвал сайта -->
     <footer>
+        <!-- Основной контейнер -->
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-5 col-md-6">
-                    <p>г. Санкт-Петербург, ул. Репина, д. 5</p>
-                </div>
+            <div class="row justify-content-left">
+                <!-- Контактная информация -->
                 <div class="col-lg-3 col-md-6">
+                    <p>192392, г. Санкт-Петербург, <br> ул. Репина, д. 5, кв. 382</p>
+                </div>
+                <!-- Почта для связи -->
+                <div class="col-lg-2 col-md-6">
                     <p>docturn@mail.com</p>
                 </div>
-                <div class="col-lg-3 col-md-6">
+                <!-- Номер для связи -->
+                <div class="col-lg-2 col-md-6">
                     <p>+7(912)333-22-11</p>
                 </div>
-                <div class="col-lg-1 col-md-6">
+                <!-- Ссылка на техническую поддержку -->
+                <div class="col-lg-3 col-md-6">
+                    <p>
+                        <a class="support" href="support.php">Техническая поддержка</a>
+                    </p>
+                </div>
+                <!-- Ссылка на главную страницу -->
+                <div class="col-lg-2 col-md-6">
+                    <!-- Логотип -->
                     <div class="logo">
                         <a href="index.php" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
                     </div>
@@ -111,6 +142,9 @@ if (isset($data['do_login'])) {
             </div>
         </div>
     </footer>
+    <!-- Конец подвала страницы -->
+    <!-- Подключение скриптов -->
+    <!-- Подключение скриптов дял входа -->
     <script src="js/signin.js"></script>
 </body>
 

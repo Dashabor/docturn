@@ -1,17 +1,19 @@
 <?php
-//подключение к базе данных
+//Подключение к БД
 require "db.php";
-//получение отправленных данных
+//Помещение полученных данных в переменную
 $data = $_POST;
+//Получение id пользователя
 $id_user = $_SESSION['logged_user']->id;
+//Указание пути загрузки фалйов
 $uploaddir = "files/";
+//Загрузка имени файла
 $tmp_name = $_FILES['file']['tmp_name'];
 $file_name =  $_FILES['file']['name'];
-
+//Задание параметров для обрезки названия файла
 $string = explode('.', $file_name);
-
 $symbols = 30;
-
+//Обрезка строки
 if (strlen($file_name) > $symbols) {
     $str = substr($file_name, 0, $symbols - 5);
     $r = end($string);
@@ -19,26 +21,22 @@ if (strlen($file_name) > $symbols) {
 } else {
     $result = $file_name;
 }
-
-
+//Обновленное имя файла
 $file_up_name = time() . $file_name;
-
 $uploadfile = $uploaddir . $file_up_name;
-
+//Проверка наличия данных
 if (isset($data['send_docs'])) {
-
-
     if ($data['recipientId'] == 0) {
         $errors[] = 'Выберите получателя!';
     }
-
     if (empty($errors)) {
-
+        //Загрузка файлов на сервер
         if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile)) {
             echo "Файл корректен и был успешно загружен.\n";
         } else {
             echo "Возможная атака с помощью файловой загрузки!\n";
         }
+        //Обновление данных в БД
         $sentdoc = R::dispense('sentdocs');
         $sentdoc->recipientId = $data['recipientId'];
         $sentdoc->senderId = $id_user;

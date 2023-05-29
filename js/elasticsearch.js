@@ -1,9 +1,8 @@
+//Поиск в реальном времени
 document.querySelector('#elastic').oninput = function(){
-
     let val = this.value.trim();
     let elasticItems = document.querySelectorAll('.searchRow');
     console.log(elasticItems);
-
     if(val != ''){
         elasticItems.forEach(function(elem){
             

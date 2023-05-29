@@ -1,16 +1,19 @@
 <?php
+//Подключение к БД
 require "db.php";
-//для запоминания айди пользователя
+//Помещение полученных данных в переменную
 $data = $_POST;
+//Получения id пользователя
 $id_user = $data['userId'];
-//получение отправленных аднных
+//Проверка наличия данных
 if (isset($data['set_access'])) {
   if (empty($errors)) {
-
+    //Обновление в БД
     $user = R::load('users', $id_user);
     $user->role = $data['role'];
     $user->accessStatus = $data['access_status'];
     R::store($user);
+    //Обновление сессии и перенаправление пользователя 
     if ($_SESSION['logged_user']->id == $id_user) {
       $_SESSION['logged_user'] = $user;
       if ($_SESSION['logged_user']->role != 1) {

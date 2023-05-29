@@ -1,9 +1,8 @@
+//Функция для прикрепления файлов
 var dt = new DataTransfer();
- 
 $('.input-file input[type=file]').on('change', function(){
 	let $files_list = $(this).closest('.input-file').next();
 	$files_list.empty();
-
 	for(var i = 0; i < this.files.length; i++){
 		let new_file_input = '<div class="input-file-list-item">' +
 			'<p class="input-file-list-name">' + this.files.item(i).name + '</p>' +
@@ -14,7 +13,8 @@ $('.input-file input[type=file]').on('change', function(){
 	};
 	this.files = dt.files;
 });
- 
+
+//Функция для удаления файлов
 function removeFilesItem(target){
 	let name = $(target).prev().text();
 	let input = $(target).closest('.input-file-row').find('input[type=file]');	

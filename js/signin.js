@@ -1,3 +1,4 @@
+//Функция сокрытия пароля
 function show_hide_password(target) {
     var input = document.getElementById('password-input');
     if (input.getAttribute('type') == 'password') {
