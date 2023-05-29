@@ -16,7 +16,7 @@ if (isset($data['send_to_support'])) {
         //Отправка сообщений раз в 1 час для обхода спама
         $request = R::getAll('SELECT * FROM `questions` WHERE user_email = ? ORDER BY `id` DESC', [$_SESSION['logged_user']->userEmail]);
          if($request[0]['next_date'] > date("d.m.Y, H:i:s", time())){
-             $errors[] = 'Попробуйте через час';
+             $errors[] = 'Попробуйте через 1 час';
          }
     }
     if (empty($errors)) {
@@ -29,10 +29,10 @@ if (isset($data['send_to_support'])) {
         $question->nextDate = date("d.m.Y, H:i:s", time()+60*60);
         R::store($question);
         //Формирование отправки сообщения
-        $email = $data['userEmail'];
+        $email = $_SESSION['logged_user']->userEmail;
         $headers  = "MIME-Version: 1.0\r\n";
         $headers .= "Content-type: text/html; charset=utf-8\r\n";
-        $headers .= "To: <noreply@unverified.beget.ru>\r\n";
+        $headers .= "To: <vasilev.vv@sut.ru>\r\n";
         $headers .= "From: <$email>\r\n";
         //Формирование текста сообщения
         $message = '
@@ -42,6 +42,7 @@ if (isset($data['send_to_support'])) {
                 </head>
                 <body>
                 <p>Отправитель:' . $data['userName'] . '</p>
+                <p>Почта: ' . $email . '</p>
                 <p>Вопрос:' . $data['problemText'] . '</p>
                 </body>
                 </html>
@@ -98,7 +99,7 @@ if (isset($data['send_to_support'])) {
                             </li>
                             <!-- Пункт меню "О нас" -->
                             <li class="nav-item">
-                                <a class="nav-link active" href="about.php">О нас</a>
+                                <a class="nav-link" href="about.php">О нас</a>
                             </li>
                             <!-- Пункт меню "Контакты" -->
                             <li class="nav-item">
@@ -139,7 +140,7 @@ if (isset($data['send_to_support'])) {
     </header>
     <!-- Конец шапки страницы -->
     <!-- Главная информация страницы -->
-    <main>
+    <main style="height:600px">
         <!-- Главный контейнер -->
         <div class="container">
             <!-- Заголовок страницы -->

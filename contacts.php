@@ -47,13 +47,13 @@ require "db.php";
                             </li>
                             <!-- Пункт меню "Контакты" -->
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Контакты</a>
+                                <a class="nav-link active" href="#">Контакты</a>
                             </li>
                             <!-- Если пользователь администратор, то отобразить вкладку "допуски" -->
                             <?php if ($_SESSION['logged_user']->role == 1) :  ?>
                                 <!-- Пункт меню "Допуски" -->
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="access.php">Допуски</a>
+                                    <a class="nav-link" href="access.php">Допуски</a>
                                 </li>
                             <?php endif; ?>
                             <!-- Если пользователь автороизован, то отобразить вкладки "документы", "личный кабинет" -->

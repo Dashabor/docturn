@@ -38,7 +38,7 @@ require "db.php";
                         <ul class="navbar-nav">
                              <!-- Пункт меню "Главная" -->
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page" href="#">Главная</a>
+                                <a class="nav-link active" aria-current="page" href="#">Главная</a>
                             </li>
                             <!-- Пункт меню "О нас" -->
                             <li class="nav-item">
@@ -52,7 +52,7 @@ require "db.php";
                             <?php if ($_SESSION['logged_user']->role == 1) :  ?>
                                 <!-- Пункт меню "Допуски" -->
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="access.php">Допуски</a>
+                                    <a class="nav-link" href="access.php">Допуски</a>
                                 </li>
                             <?php endif; ?>
                             <!-- Если пользователь автороизован, то отобразить вкладки "документы", "личный кабинет" -->

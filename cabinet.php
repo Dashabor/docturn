@@ -58,7 +58,7 @@ if (isset($_SESSION['logged_user'])) {
                             <?php if ($_SESSION['logged_user']->role == 1) :  ?>
                                 <!-- Пункт меню "Допуски" -->
                                 <li class="nav-item">
-                                    <a class="nav-link active" href="access.php">Допуски</a>
+                                    <a class="nav-link" href="access.php">Допуски</a>
                                 </li>
                             <?php endif; ?>
                             <!-- Если пользователь автороизован, то отобразить вкладки "документы", "личный кабинет" -->
@@ -69,7 +69,7 @@ if (isset($_SESSION['logged_user'])) {
                                 </li>
                                 <!-- Пункт меню "Личный кабинет" -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Личный кабинет</a>
+                                    <a class="nav-link active" href="#">Личный кабинет</a>
                                 </li>
                                 <!-- Кнопка для завершения сессии -->
                                 <li class="nav-item nav-button">
