@@ -124,36 +124,7 @@ if ($_GET['hash']) {
     <!-- Конец главной информации страницы -->
     <!-- Подвал сайта -->
     <footer>
-        <!-- Основной контейнер -->
-        <div class="container">
-            <div class="row justify-content-left">
-                <!-- Контактная информация -->
-                <div class="col-lg-3 col-md-6">
-                    <p>192392, г. Санкт-Петербург, <br> ул. Репина, д. 5, кв. 382</p>
-                </div>
-                <!-- Почта для связи -->
-                <div class="col-lg-2 col-md-6">
-                    <p>docturn@mail.com</p>
-                </div>
-                <!-- Номер для связи -->
-                <div class="col-lg-2 col-md-6">
-                    <p>+7(912)333-22-11</p>
-                </div>
-                <!-- Ссылка на техническую поддержку -->
-                <div class="col-lg-3 col-md-6">
-                    <p>
-                        <a class="support" href="support.php">Техническая поддержка</a>
-                    </p>
-                </div>
-                <!-- Ссылка на главную страницу -->
-                <div class="col-lg-2 col-md-6">
-                    <!-- Логотип -->
-                    <div class="logo">
-                        <a href="index.php" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php require "footer.php" ?>
     </footer>
     <!-- Конец подвала страницы -->
     <!-- Подключение скриптов -->

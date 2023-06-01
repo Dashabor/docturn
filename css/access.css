@@ -36,6 +36,10 @@
     border-right: 1px solid #cacaca;
 }
 
+.changed{
+    background-color: rgb(192, 250, 221);
+}
+
 select{
     padding: 10px 20px;
     outline: none;

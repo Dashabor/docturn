@@ -1,6 +1,11 @@
 <?php
 //Подключение к БД
 require "db.php";
+
+$data = $_GET['request'];
+
+var_dump($data);
+
 //Проверка роли пользователя, если не админ, то перенаправление
 if ($_SESSION['logged_user']->role != 1) {
     header('location: documents.php#content-1');
@@ -28,6 +33,11 @@ if (isset($_SESSION['logged_user'])) {
 </head>
 
 <body>
+
+    <div style="display: none">
+        <input id="changedRequest" type="text" value="<?php echo $data ?>">
+    </div>
+
     <!-- Шапка страницы -->
     <header>
         <!-- Общий контейнер -->
@@ -46,7 +56,7 @@ if (isset($_SESSION['logged_user'])) {
                     <!-- Пункты меню -->
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
-                             <!-- Пункт меню "Главная" -->
+                            <!-- Пункт меню "Главная" -->
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page" href="index.php">Главная</a>
                             </li>
@@ -150,7 +160,7 @@ if (isset($_SESSION['logged_user'])) {
                                 <tbody>';
                     //Вывод каждого пользователя отдельно
                     foreach ($request as $active) {
-                       //Фио пользователя
+                        //Фио пользователя
                         echo '
                                     <tr style="height: 30px;">
                                         <td>
@@ -179,7 +189,7 @@ if (isset($_SESSION['logged_user'])) {
                         //Формирование блока с информацией о пользователе
                         echo
                         '<div class="request" id="request' . $active['id'] . '">
-                        <form action="set_access.php" method="POST">
+                        <form action="set_access.php" method="POST" onsubmit="if(conf()) return true; else return false">
                         <input type="text" name="userId" value="' . $active['id'] . '" hidden>
                                 <h3>Заявка №' . $active['id'] . '</h3>
                             <div class="row">
@@ -248,36 +258,7 @@ if (isset($_SESSION['logged_user'])) {
     <!-- Конец главной информации страницы -->
     <!-- Подвал сайта -->
     <footer>
-        <!-- Основной контейнер -->
-        <div class="container">
-            <div class="row justify-content-left">
-                <!-- Контактная информация -->
-                <div class="col-lg-3 col-md-6">
-                    <p>192392, г. Санкт-Петербург, <br> ул. Репина, д. 5, кв. 382</p>
-                </div>
-                <!-- Почта для связи -->
-                <div class="col-lg-2 col-md-6">
-                    <p>docturn@mail.com</p>
-                </div>
-                <!-- Номер для связи -->
-                <div class="col-lg-2 col-md-6">
-                    <p>+7(912)333-22-11</p>
-                </div>
-                <!-- Ссылка на техническую поддержку -->
-                <div class="col-lg-3 col-md-6">
-                    <p>
-                        <a class="support" href="support.php">Техническая поддержка</a>
-                    </p>
-                </div>
-                <!-- Ссылка на главную страницу -->
-                <div class="col-lg-2 col-md-6">
-                    <!-- Логотип -->
-                    <div class="logo">
-                        <a href="index.php" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php require "footer.php" ?>
     </footer>
     <!-- Конец подвала страницы -->
     <!-- Подключение скриптов -->
@@ -305,7 +286,15 @@ if (isset($_SESSION['logged_user'])) {
             mywindow.close();
             return true;
         });
+
+        var changedRequest = document.getElementById('changedRequest').value;
+        console.log(changedRequest);
+        var str = "request" + changedRequest;
+
+        const res = document.getElementById(str);
+        res.classList.add('changed');
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
+
 </html>

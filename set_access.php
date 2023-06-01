@@ -19,10 +19,10 @@ if (isset($data['set_access'])) {
       if ($_SESSION['logged_user']->role != 1) {
         header("location: documents.php#content-1");
       } else {
-        header("location: access.php#request$id_user");
+        header("location: access.php?request=$id_user");
       }
     } else
-      header("location: access.php#request$id_user");
+      header("location: access.php?request=$id_user");
   } else {
     //сообщение об ошибке
     $fsmsg = array_shift($errors);

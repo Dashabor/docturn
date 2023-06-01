@@ -277,7 +277,7 @@ if (isset($_SESSION['logged_user'])) {
                             <p>Комментарий</p>
                         </div>
                     </div>
-                    <form class="msg-form" id="documents-form" method="post" action="send_document.php" enctype="multipart/form-data">
+                    <form class="msg-form" id="documents-form" method="post" action="send_document.php" enctype="multipart/form-data" onsubmit="if(conf()) return true; else return false">
                         <div class="row justify-content-center align-items-center new-doc">
                             <div class="col-lg-4 col-md-4 p-20">
                                 <select name="recipientId" required>
@@ -310,7 +310,7 @@ if (isset($_SESSION['logged_user'])) {
                         </div>
                         <div class="row justify-content-center align-items-center new-doc">
                             <div class="col-lg-4 col-md-12">';
-                    echo '<button class="btn send" type="submit" name="send_docs" onlick=>Отправить</button>
+                    echo '<button class="btn send" type="submit" name="send_docs" >Отправить</button>
                             </div>
                         </div>
                     </form>
@@ -346,36 +346,7 @@ if (isset($_SESSION['logged_user'])) {
     <!-- Конец главной информации страницы -->
     <!-- Подвал сайта -->
     <footer>
-        <!-- Основной контейнер -->
-        <div class="container">
-            <div class="row justify-content-left">
-                <!-- Контактная информация -->
-                <div class="col-lg-3 col-md-6">
-                    <p>192392, г. Санкт-Петербург, <br> ул. Репина, д. 5, кв. 382</p>
-                </div>
-                <!-- Почта для связи -->
-                <div class="col-lg-2 col-md-6">
-                    <p>docturn@mail.com</p>
-                </div>
-                <!-- Номер для связи -->
-                <div class="col-lg-2 col-md-6">
-                    <p>+7(912)333-22-11</p>
-                </div>
-                <!-- Ссылка на техническую поддержку -->
-                <div class="col-lg-3 col-md-6">
-                    <p>
-                        <a class="support" href="support.php">Техническая поддержка</a>
-                    </p>
-                </div>
-                <!-- Ссылка на главную страницу -->
-                <div class="col-lg-2 col-md-6">
-                    <!-- Логотип -->
-                    <div class="logo">
-                        <a href="index.php" class="navbar-brand"><span class="logo-color">DOC</span><span class="main-color">TURN</span></a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php require "footer.php" ?>
     </footer>
     <!-- Конец подвала страницы -->
     <!-- Подключение скриптов -->
